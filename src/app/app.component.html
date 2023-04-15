@@ -1,20 +1,19 @@
 <div class="container-fluid">
   <h1>Bootcamp enrollement form</h1>
   <form #userForm="ngForm">
-    {{ userForm.value | json}}
-    <hr>
-    {{userModel | json}}
+  
     <div class="form-group">
       <label for="username">Name</label>
-      <input type="text" name="username" class="form-control" [(ngModel)]="userModel.name"/>
+      <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" name="username" class="form-control" [(ngModel)]="userModel.name"/>
     </div>
+   
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" name="email" class="form-control" [(ngModel)]="userModel.email"/>
     </div>
     <div class="form-group">
       <label for="phone">Phone</label>
-      <input type="tel" name="phone" class="form-control" [(ngModel)]="userModel.phone"/>
+      <input type="tel" #phone="ngModel" pattern="^\d{10}&" [class.is-invalid]="phone.invalid && phone.touched"  name="phone" class="form-control" [(ngModel)]="userModel.phone"/>
     </div>
 
     <div class="form-group">
