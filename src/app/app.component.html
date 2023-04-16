@@ -1,6 +1,9 @@
 <div class="container-fluid">
   <h1>Bootcamp enrollement form</h1>
-  <form #userForm="ngForm">
+  <form #userForm="ngForm" *ngIf="!submitted" novalidate (ngSubmit)="onSubmit(userForm)">
+<div class="alert alert-danger" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
     <div class="form-group">
       <label for="username">Name</label>
       <input
@@ -37,7 +40,7 @@
         type="tel"
         required
         #phone="ngModel"
-        pattern="^\d{10}$"
+        pattern="^\d{11}$"
         [class.is-invalid]="phone.invalid && phone.touched"
         name="phone"
         class="form-control"
@@ -46,7 +49,7 @@
       <small
         class="text-danger"
         [class.invisible]="phone.valid || phone.untouched"
-        >Phone number is required and must be 10 digits</small
+        >Phone number is required and must be 11 digits</small
       >
     </div>
 
@@ -105,6 +108,6 @@
       <label class="form-check-label"> Send me promotional offers </label>
     </div>
 
-    <button class="btn btn-primary" type="submit">Submit Form</button>
+    <button class="btn btn-primary" type="submit" [disabled]="userForm.form.invalid || topicHasError">Submit Form</button>
   </form>
 </div>
